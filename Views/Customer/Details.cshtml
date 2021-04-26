@@ -1,0 +1,112 @@
+﻿@model Zadanie.Models.Customer
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<div style="font-family:Arial">
+    <h2>Szczegóły klienta</h2>
+
+    <div style="font-size:16px">
+        <hr />
+        <dl class="dl-horizontal">
+            <dt>
+                @Html.DisplayNameFor(model => model.FirstName)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.FirstName)
+            </dd>
+
+            <dt>
+                @Html.DisplayNameFor(model => model.LastName)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.LastName)
+            </dd>
+
+            <dt>
+                @Html.DisplayNameFor(model => model.Address)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.Address)
+            </dd>
+
+            <dt>
+                @Html.DisplayNameFor(model => model.CustomerStatus.Status)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.CustomerStatus.Status)
+            </dd>
+            @Html.ActionLink("Edytuj klienta", "Edit", new { id = Model.ID })
+        </dl>
+
+        <br /><br />
+        <div>
+            <table class="table" style="width:65%">
+                <tr>
+                    <th width="70%">
+                        Lista emaili
+                    </th>
+                    <th style="text-align:center">
+                        Dostępne funkcje
+                    </th>
+                </tr>
+
+                @foreach (var item in Model.Email)
+                {
+                    <tr>
+                        <td>
+                            @item.EmailContent
+                        </td>
+                        <td style="text-align:center">
+                            @Html.ActionLink("Edytuj email", "Edit", "Email", new { id = item.ID }, null) |
+                            @Html.ActionLink("Usuń email", "Delete", "Email", new { id = item.ID }, null)
+                        </td>
+                    </tr>
+                }
+            </table>
+        </div>
+
+        <div>
+            <table class="table" style="width:65%">
+                <tr>
+                    <th width="70%">
+                        Lista numerów telefonu
+                    </th>
+                    <th style="text-align:center">
+                        Dostępne funkcje
+                    </th>
+                </tr>
+
+                @foreach (var item in Model.Phone)
+                {
+                    <tr>
+                        <td>
+                            @item.PhoneContent
+                        </td>
+                        <td style="text-align:center">
+                            @Html.ActionLink("Edytuj numer", "Edit", "Phone", new { id = item.ID }, null) |
+                            @Html.ActionLink("Usuń numer", "Delete", "Phone", new { id = item.ID }, null)
+                        </td>
+                    </tr>
+                }
+            </table>
+        </div>
+
+        <hr />
+
+        @Html.ActionLink("Dodaj email", "Create", "Email", new { id = Model.ID }, null)
+        <br />
+        @Html.ActionLink("Dodaj numer telefonu", "Create", "Phone", new { id = Model.ID }, null)
+        <br /><br />
+
+        <p>
+            @Html.ActionLink("Wróć do listy", "Index")
+        </p>
+
+    </div>
+</div>

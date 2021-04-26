@@ -1,0 +1,265 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="Models.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="tblCustomer">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="FirstName" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="LastName" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="Address" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="StatusID" Type="int" Nullable="false" />
+          <Property Name="EmailQuantity" Type="int" Nullable="false" />
+          <Property Name="PhoneQuantity" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="tblCustomerStatus">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Status" Type="nvarchar" MaxLength="50" Nullable="false" />
+        </EntityType>
+        <EntityType Name="tblEmail">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="EmailContent" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="CustomerID" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="tblPhone">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="PhoneContent" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="CustomerID" Type="int" Nullable="false" />
+        </EntityType>
+        <Association Name="FK__tblCustom__Statu__5CD6CB2B">
+          <End Role="tblCustomerStatus" Type="Self.tblCustomerStatus" Multiplicity="1" />
+          <End Role="tblCustomer" Type="Self.tblCustomer" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tblCustomerStatus">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="tblCustomer">
+              <PropertyRef Name="StatusID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__tblEmail__Custom__5FB337D6">
+          <End Role="tblCustomer" Type="Self.tblCustomer" Multiplicity="1" />
+          <End Role="tblEmail" Type="Self.tblEmail" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tblCustomer">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="tblEmail">
+              <PropertyRef Name="CustomerID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__tblPhone__Custom__628FA481">
+          <End Role="tblCustomer" Type="Self.tblCustomer" Multiplicity="1" />
+          <End Role="tblPhone" Type="Self.tblPhone" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tblCustomer">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="tblPhone">
+              <PropertyRef Name="CustomerID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="ModelsStoreContainer">
+          <EntitySet Name="tblCustomer" EntityType="Self.tblCustomer" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="tblCustomerStatus" EntityType="Self.tblCustomerStatus" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="tblEmail" EntityType="Self.tblEmail" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="tblPhone" EntityType="Self.tblPhone" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK__tblCustom__Statu__5CD6CB2B" Association="Self.FK__tblCustom__Statu__5CD6CB2B">
+            <End Role="tblCustomerStatus" EntitySet="tblCustomerStatus" />
+            <End Role="tblCustomer" EntitySet="tblCustomer" />
+          </AssociationSet>
+          <AssociationSet Name="FK__tblEmail__Custom__5FB337D6" Association="Self.FK__tblEmail__Custom__5FB337D6">
+            <End Role="tblCustomer" EntitySet="tblCustomer" />
+            <End Role="tblEmail" EntitySet="tblEmail" />
+          </AssociationSet>
+          <AssociationSet Name="FK__tblPhone__Custom__628FA481" Association="Self.FK__tblPhone__Custom__628FA481">
+            <End Role="tblCustomer" EntitySet="tblCustomer" />
+            <End Role="tblPhone" EntitySet="tblPhone" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="Models" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="Customer">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="FirstName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="LastName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Address" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="StatusID" Type="Int32" Nullable="false" />
+          <Property Name="EmailQuantity" Type="Int32" Nullable="false" />
+          <Property Name="PhoneQuantity" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="CustomerStatus" Relationship="Self.FK__tblCustom__Statu__5CD6CB2B" FromRole="tblCustomer" ToRole="tblCustomerStatus" />
+          <NavigationProperty Name="Email" Relationship="Self.FK__tblEmail__Custom__5FB337D6" FromRole="tblCustomer" ToRole="tblEmail" />
+          <NavigationProperty Name="Phone" Relationship="Self.FK__tblPhone__Custom__628FA481" FromRole="tblCustomer" ToRole="tblPhone" />
+        </EntityType>
+        <EntityType Name="CustomerStatus">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Status" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <NavigationProperty Name="Customer" Relationship="Self.FK__tblCustom__Statu__5CD6CB2B" FromRole="tblCustomerStatus" ToRole="tblCustomer" />
+        </EntityType>
+        <EntityType Name="Email">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="EmailContent" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="CustomerID" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Customer" Relationship="Self.FK__tblEmail__Custom__5FB337D6" FromRole="tblEmail" ToRole="tblCustomer" />
+        </EntityType>
+        <EntityType Name="Phone">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="PhoneContent" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="CustomerID" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Customer" Relationship="Self.FK__tblPhone__Custom__628FA481" FromRole="tblPhone" ToRole="tblCustomer" />
+        </EntityType>
+        <Association Name="FK__tblCustom__Statu__5CD6CB2B">
+          <End Role="tblCustomerStatus" Type="Models.CustomerStatus" Multiplicity="1" />
+          <End Role="tblCustomer" Type="Models.Customer" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tblCustomerStatus">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="tblCustomer">
+              <PropertyRef Name="StatusID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__tblEmail__Custom__5FB337D6">
+          <End Role="tblCustomer" Type="Models.Customer" Multiplicity="1" />
+          <End Role="tblEmail" Type="Models.Email" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tblCustomer">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="tblEmail">
+              <PropertyRef Name="CustomerID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__tblPhone__Custom__628FA481">
+          <End Role="tblCustomer" Type="Models.Customer" Multiplicity="1" />
+          <End Role="tblPhone" Type="Models.Phone" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tblCustomer">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="tblPhone">
+              <PropertyRef Name="CustomerID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="DBContext" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Customers" EntityType="Models.Customer" />
+          <EntitySet Name="CustomerStatus" EntityType="Models.CustomerStatus" />
+          <EntitySet Name="Emails" EntityType="Models.Email" />
+          <EntitySet Name="Phones" EntityType="Models.Phone" />
+          <AssociationSet Name="FK__tblCustom__Statu__5CD6CB2B" Association="Self.FK__tblCustom__Statu__5CD6CB2B">
+            <End Role="tblCustomerStatus" EntitySet="CustomerStatus" />
+            <End Role="tblCustomer" EntitySet="Customers" />
+          </AssociationSet>
+          <AssociationSet Name="FK__tblEmail__Custom__5FB337D6" Association="Self.FK__tblEmail__Custom__5FB337D6">
+            <End Role="tblCustomer" EntitySet="Customers" />
+            <End Role="tblEmail" EntitySet="Emails" />
+          </AssociationSet>
+          <AssociationSet Name="FK__tblPhone__Custom__628FA481" Association="Self.FK__tblPhone__Custom__628FA481">
+            <End Role="tblCustomer" EntitySet="Customers" />
+            <End Role="tblPhone" EntitySet="Phones" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="ModelsStoreContainer" CdmEntityContainer="DBContext">
+          <EntitySetMapping Name="Customers">
+            <EntityTypeMapping TypeName="Models.Customer">
+              <MappingFragment StoreEntitySet="tblCustomer">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="FirstName" ColumnName="FirstName" />
+                <ScalarProperty Name="LastName" ColumnName="LastName" />
+                <ScalarProperty Name="Address" ColumnName="Address" />
+                <ScalarProperty Name="StatusID" ColumnName="StatusID" />
+                <ScalarProperty Name="EmailQuantity" ColumnName="EmailQuantity" />
+                <ScalarProperty Name="PhoneQuantity" ColumnName="PhoneQuantity" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="CustomerStatus">
+            <EntityTypeMapping TypeName="Models.CustomerStatus">
+              <MappingFragment StoreEntitySet="tblCustomerStatus">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="Status" ColumnName="Status" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Emails">
+            <EntityTypeMapping TypeName="Models.Email">
+              <MappingFragment StoreEntitySet="tblEmail">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="EmailContent" ColumnName="EmailContent" />
+                <ScalarProperty Name="CustomerID" ColumnName="CustomerID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Phones">
+            <EntityTypeMapping TypeName="Models.Phone">
+              <MappingFragment StoreEntitySet="tblPhone">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="PhoneContent" ColumnName="PhoneContent" />
+                <ScalarProperty Name="CustomerID" ColumnName="CustomerID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="true" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>
